@@ -159,7 +159,7 @@ class FirestoreClass {
             }
     }
 
-    fun getBoardsDeatails(activity: TaskListActivity, boardDocumentId: String) {
+    fun getBoardsDetails(activity: TaskListActivity, boardDocumentId: String) {
         mFireStore.collection(Constants.BOARDS)
             .document(boardDocumentId).
             get().addOnSuccessListener {
