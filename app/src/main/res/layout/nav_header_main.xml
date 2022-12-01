@@ -17,7 +17,7 @@
         android:layout_marginEnd="10dp"
         app:civ_border_color="@color/white"
         app:civ_border_width="5dp"
-        android:contentDescription="@string/userimage"
+        android:contentDescription="userimage"
         android:src="@drawable/ic_user_place_holder"/>
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_marginBottom="16dp"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:text="@string/username"/>
+        android:text="username"/>
     
     <View
         android:layout_width="match_parent"

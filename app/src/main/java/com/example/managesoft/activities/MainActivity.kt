@@ -5,14 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.managesoft.R
 import com.example.managesoft.activities.ProfileActivity
+import com.example.managesoft.activities.TaskListActivity
 import com.example.managesoft.activities.createBoardActivity
+import com.example.managesoft.adapters.BoardItemsAdapter
 import com.example.managesoft.databinding.ActivityMainBinding
 import com.example.managesoft.firebase.FirestoreClass
+import com.example.managesoft.model.Board
 import com.example.managesoft.model.User
 import com.example.managesoft.utils.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,14 +39,44 @@ import com.google.firebase.auth.FirebaseAuth
 
         binding?.navView?.setNavigationItemSelectedListener(this)
 
-        FirestoreClass().loadUserData(this)
+        FirestoreClass().loadUserData(this,true)
 
         findViewById<FloatingActionButton>(R.id.fab_create_board).setOnClickListener{
             val intent = Intent(this, createBoardActivity::class.java)
             intent.putExtra(Constants.NAME,mUserName)
-            startActivity(intent)
+            startActivityForResult(intent, CREATE_BOARD_UPDATE)
         }
     }
+
+     fun boardsListInUI(boardList : ArrayList<Board>){
+         hideProgressDialog()
+         var rvBoardList = findViewById<RecyclerView>(R.id.RV_Boards_list)
+         var noBoardList = findViewById<TextView>(R.id.tv_noBoards_available)
+         if (boardList.size>0){
+             rvBoardList.visibility = View.VISIBLE
+             noBoardList.visibility = View.GONE
+             rvBoardList.layoutManager = LinearLayoutManager(this)
+             rvBoardList.setHasFixedSize(true)
+
+             val adapter = BoardItemsAdapter(this,boardList)
+             rvBoardList.adapter = adapter
+
+             adapter.setOnClickListener(object: BoardItemsAdapter.OnClickListener{
+                 override fun onClick(position: Int, modal: Board) {
+                     var intent = Intent(this@MainActivity,TaskListActivity::class.java)
+                     intent.putExtra(Constants.DOCUMENT_ID,modal.documentId)
+                     startActivity(intent)
+
+                 }
+             })
+
+         }else{
+             rvBoardList.visibility = View.GONE
+             noBoardList.visibility = View.VISIBLE
+         }
+     }
+
+
 
      private fun setupActionBar(){
          setSupportActionBar(findViewById(R.id.toolbar_main_activity))
@@ -67,7 +103,7 @@ import com.google.firebase.auth.FirebaseAuth
          }
      }
 
-     fun updateNavigationUserDetails (user: User){
+     fun updateNavigationUserDetails (user: User,readBoardList : Boolean){
 
          mUserName = user.name
 
@@ -76,6 +112,12 @@ import com.google.firebase.auth.FirebaseAuth
              .into(findViewById(R.id.nav_user_image))
 
          findViewById<TextView>(R.id.nav_username).text = user.name
+
+         if (readBoardList){
+             showProgressDialog("Loading..")
+             FirestoreClass().getBoardsList(this)
+
+         }
      }
 
      override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -101,6 +143,8 @@ import com.google.firebase.auth.FirebaseAuth
          if (resultCode == Activity.RESULT_OK){
              if (requestCode == UPDATED_USER_PROFILE_DATA){
                  FirestoreClass().loadUserData(this)
+             }else if (requestCode == CREATE_BOARD_UPDATE){
+                 FirestoreClass().getBoardsList(this)
              }else{
                  Log.e("Cancelled" , "Activity to get data from profile get cancelled")
              }
@@ -109,6 +153,7 @@ import com.google.firebase.auth.FirebaseAuth
 
      companion object {
         private const val UPDATED_USER_PROFILE_DATA : Int = 11
+         private const val CREATE_BOARD_UPDATE : Int = 12
      }
 
  }
