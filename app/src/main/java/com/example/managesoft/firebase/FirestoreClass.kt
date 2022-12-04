@@ -1,8 +1,10 @@
 package com.example.managesoft.firebase
 
 import android.app.Activity
+import android.text.Editable
 import android.util.Log
 import android.widget.Toast
+import com.example.managesoft.activities.MembersActivity
 import com.example.managesoft.activities.ProfileActivity
 import com.example.managesoft.activities.TaskListActivity
 import com.example.managesoft.activities.activities.MainActivity
@@ -172,6 +174,58 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName ,
                     "Error while creating View")
+            }
+    }
+
+    fun getAssignedMembersListDetails(activity: MembersActivity, assignedTo : ArrayList<String>){
+        mFireStore.collection(Constants.USERS).whereIn(Constants.ID,assignedTo)
+            .get().addOnSuccessListener {
+                doc->
+                Log.e(activity.javaClass.simpleName,doc.documents.toString())
+
+                val usersList : ArrayList<User> = ArrayList()
+
+                for (i in doc){
+                    val user = i.toObject(User::class.java)
+                    usersList.add(user)
+                }
+
+                activity.setUpMembersList(usersList)
+            }.addOnFailureListener {e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,
+                "Error While creating a board." ,e)
+            }
+    }
+
+    fun getMemberDetails(activity: MembersActivity, email: String){
+        mFireStore.collection(Constants.USERS).whereEqualTo(Constants.EMAIL,email)
+            .get().addOnSuccessListener {
+                doc ->
+                if (doc.size() > 0){
+                    val user= doc.documents[0].toObject(User::class.java)
+                    activity.memberDetails(user!!)
+                }else{
+                    activity.hideProgressDialog()
+                    activity.showErrorSnackBar("No such member Found")
+                }
+            }.addOnFailureListener {e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while getting user details",e)
+            }
+    }
+
+    fun assignMemberToBoard(activity : MembersActivity,board: Board,user: User){
+
+        var assignedToHashMap = HashMap<String,Any>()
+        assignedToHashMap[Constants.ASSIGNED_TO] = board.assignedTo
+
+        mFireStore.collection(Constants.BOARDS).document(board.documentId)
+            .update(assignedToHashMap).addOnSuccessListener {
+                activity.memberAssignSuccess(user)
+            }.addOnFailureListener {e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while adding details",e)
             }
     }
 }

@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
-        app:srcCompat = "@drawable/ic_vector_add_24"/>
+        app:srcCompat = "@drawable/ic_vector_add_24dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

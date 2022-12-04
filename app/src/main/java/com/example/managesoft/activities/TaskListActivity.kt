@@ -1,7 +1,11 @@
 package com.example.managesoft.activities
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.managesoft.R
@@ -13,28 +17,44 @@ import com.example.managesoft.model.Board
 import com.example.managesoft.model.Card
 import com.example.managesoft.model.Task
 import com.example.managesoft.utils.Constants
+import java.text.FieldPosition
 
 class TaskListActivity : BaseActivity() {
 
     var binding : ActivityTaskListBinding ?= null
     private lateinit var mBoardDetails : Board
+    private lateinit var mBoardDocumentID :String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskListBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        var boardDocumentId = ""
-
         if (intent.hasExtra(Constants.DOCUMENT_ID)){
-            boardDocumentId = intent.getStringExtra(Constants.DOCUMENT_ID).toString()
+            mBoardDocumentID = intent.getStringExtra(Constants.DOCUMENT_ID).toString()
         }
         showProgressDialog("loading..")
-        FirestoreClass().getBoardsDetails(this,boardDocumentId)
+        FirestoreClass().getBoardsDetails(this,mBoardDocumentID)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_members,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_members ->{
+                val intent = Intent(this , MembersActivity::class.java)
+                intent.putExtra(Constants.BOARD_DETAILS,mBoardDetails)
+                startActivityForResult(intent, MEMBERS_REQUEST_CODE)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setUpActionBar(){
-
         setSupportActionBar(binding?.toolbarTaskListActivity)
         val actionbar = supportActionBar
         if (actionbar != null){
@@ -115,6 +135,30 @@ class TaskListActivity : BaseActivity() {
 
         showProgressDialog("Please wait...")
         FirestoreClass().addUpdateTaskList(this,mBoardDetails)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == MEMBERS_REQUEST_CODE){
+                showProgressDialog("Loading.. ")
+                FirestoreClass().getBoardsDetails(this,mBoardDocumentID)
+            }else{
+                Log.e("Cancelled","Cancelled")
+            }
+        }
+    }
+
+    fun cardDetails(taskListPosition: Int, cardPosition : Int){
+        var intent = Intent(this,CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAILS,mBoardDetails)
+        intent.putExtra(Constants.TASK_LIST_ITEM_POSITION,taskListPosition)
+        intent.putExtra(Constants.CARD_LIST_ITEM_POSITION,cardPosition)
+        startActivity(intent)
+    }
+
+    companion object {
+        const val MEMBERS_REQUEST_CODE : Int = 13
     }
 
 }
