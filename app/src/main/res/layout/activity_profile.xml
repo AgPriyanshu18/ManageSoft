@@ -75,8 +75,6 @@
                     android:id="@+id/up_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
                     android:hint="Mobile"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>

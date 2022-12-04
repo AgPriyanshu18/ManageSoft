@@ -6,9 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
-import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,7 +17,7 @@ import com.example.managesoft.databinding.ActivityProfileBinding
 import com.example.managesoft.firebase.FirestoreClass
 import com.example.managesoft.model.User
 import com.example.managesoft.utils.Constants
-import com.example.managesoft.utils.Constants.showImagechooser
+import com.example.managesoft.utils.Constants.showImageChooser
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.IOException
@@ -43,7 +41,7 @@ class ProfileActivity : BaseActivity() {
         binding?.upImage?.setOnClickListener{
             if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED){
-                showImagechooser(this@ProfileActivity)
+                showImageChooser(this@ProfileActivity)
             }else{
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -56,11 +54,13 @@ class ProfileActivity : BaseActivity() {
             if (mSelectedImageFileUri != null){
                 uploadUserImage()
             }else{
+                Log.e("data","Kuch to gadbad hai")
                 showProgressDialog("Changing")
                 updateUserProfileData()
             }
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -70,9 +70,9 @@ class ProfileActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE){
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                showImagechooser(this@ProfileActivity)
+                showImageChooser(this@ProfileActivity)
             }else{
-                Toast.makeText(this,"you denied permissions for storage you can allow" +
+                Toast.makeText(this,"you denied permissions for storage. You can allow" +
                         "them in settings",Toast.LENGTH_SHORT).show()
             }
         }
@@ -81,6 +81,7 @@ class ProfileActivity : BaseActivity() {
                 uploadUserImage()
             }
         }
+
     }
 
 
@@ -101,8 +102,10 @@ class ProfileActivity : BaseActivity() {
     fun updateUserProfileData(){
         val userHashMap = HashMap<String , Any>()
 
-        if (mProfileImageURL!!.isNotEmpty() && mProfileImageURL != mUserDetails.image){
-            userHashMap[Constants.IMAGE] = mProfileImageURL!!
+        if(mProfileImageURL != null){
+            if (mProfileImageURL!!.isNotEmpty() && mProfileImageURL != mUserDetails.image) {
+                userHashMap[Constants.IMAGE] = mProfileImageURL!!
+            }
         }
 
         if (binding?.upName?.text.toString() != mUserDetails.name){

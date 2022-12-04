@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/Sign_In_text"
+        android:text="@string/sign_in"
         android:textSize="20sp"
         android:gravity="center"
         android:textColor="@color/black"
