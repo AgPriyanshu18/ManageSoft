@@ -16,6 +16,7 @@ import com.example.managesoft.firebase.FirestoreClass
 import com.example.managesoft.model.Board
 import com.example.managesoft.model.Card
 import com.example.managesoft.model.Task
+import com.example.managesoft.model.User
 import com.example.managesoft.utils.Constants
 import java.text.FieldPosition
 
@@ -24,6 +25,7 @@ class TaskListActivity : BaseActivity() {
     var binding : ActivityTaskListBinding ?= null
     private lateinit var mBoardDetails : Board
     private lateinit var mBoardDocumentID :String
+    lateinit var mAssignedMembersDetailsList : ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,15 +82,10 @@ class TaskListActivity : BaseActivity() {
         setUpActionBar()
 
 
-        val addTaskList = Task(resources.getString(R.string.add_list))
-        board.taskList.add(addTaskList)
-        binding?.rvTaskList?.layoutManager = LinearLayoutManager(this,
-        RecyclerView.HORIZONTAL,false)
-        binding?.rvTaskList?.setHasFixedSize(true)
 
-        val  adapter = TaskListItemAdapter(this,board.taskList)
 
-        binding?.rvTaskList?.adapter = adapter
+        showProgressDialog("Please wait ..")
+        FirestoreClass().getAssignedMembersListDetails(this,mBoardDetails.assignedTo)
     }
 
     fun createTaskList(taskListName : String){
@@ -143,7 +140,11 @@ class TaskListActivity : BaseActivity() {
             if (requestCode == MEMBERS_REQUEST_CODE){
                 showProgressDialog("Loading.. ")
                 FirestoreClass().getBoardsDetails(this,mBoardDocumentID)
-            }else{
+            }else if(requestCode == CARD_DETAILS_REQUEST_CODE){
+                showProgressDialog("Loading.. ")
+                FirestoreClass().getBoardsDetails(this,mBoardDocumentID)
+            }
+            else{
                 Log.e("Cancelled","Cancelled")
             }
         }
@@ -154,11 +155,28 @@ class TaskListActivity : BaseActivity() {
         intent.putExtra(Constants.BOARD_DETAILS,mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION,taskListPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION,cardPosition)
-        startActivity(intent)
+        intent.putExtra(Constants.BOARD_MEMBERS_LIST,mAssignedMembersDetailsList)
+        startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
+    }
+
+    fun boardMembersListDetails(list : ArrayList<User>){
+        mAssignedMembersDetailsList = list
+        hideProgressDialog()
+
+        val addTaskList = Task(resources.getString(R.string.add_list))
+        mBoardDetails.taskList.add(addTaskList)
+        binding?.rvTaskList?.layoutManager = LinearLayoutManager(this,
+            RecyclerView.HORIZONTAL,false)
+        binding?.rvTaskList?.setHasFixedSize(true)
+
+        val  adapter = TaskListItemAdapter(this,mBoardDetails.taskList)
+
+        binding?.rvTaskList?.adapter = adapter
     }
 
     companion object {
         const val MEMBERS_REQUEST_CODE : Int = 13
+        const val CARD_DETAILS_REQUEST_CODE : Int = 14
     }
 
 }

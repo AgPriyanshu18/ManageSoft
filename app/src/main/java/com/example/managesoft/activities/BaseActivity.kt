@@ -1,5 +1,6 @@
 package com.example.managesoft.activities.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
@@ -62,4 +63,7 @@ open class BaseActivity : AppCompatActivity() {
         snackBar.show()
     }
 
+    fun makeToast(activity : Activity , message : String){
+        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show()
+    }
 }

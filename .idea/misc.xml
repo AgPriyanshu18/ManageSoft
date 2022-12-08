@@ -14,6 +14,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/ic_vector_add_24.xml" value="0.203" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/ic_vector_add_24dp.xml" value="0.203" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/ic_vector_color_accent_done_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/ic_vector_white_done_24dp.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/shape_button_rounded.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/drawable/white_border_shape_button_rounded.xml" value="0.112" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/activity_base.xml" value="0.23385416666666667" />
@@ -30,15 +31,20 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/activity_task_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/app_bar_main.xml" value="0.2047008547008547" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/dialog_add_member.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/dialog_list.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/dialog_member.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/dialog_progress.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_board.xml" value="0.6" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_card.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_card_selected_member.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_label_color.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_member.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/item_task.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/main_content.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/menu/activity_main_drawer.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/menu/menu_add_member.xml" value="0.253125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/menu/menu_delete_card.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/user/AndroidStudioProjects/ManageSoft/app/src/main/res/menu/menu_members.xml" value="0.20811965811965813" />
       </map>
     </option>
