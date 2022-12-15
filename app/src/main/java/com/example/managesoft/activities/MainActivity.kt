@@ -48,8 +48,6 @@ import com.google.firebase.auth.FirebaseAuth
         }
     }
 
-     // learning
-
      fun boardsListInUI(boardList : ArrayList<Board>){
          hideProgressDialog()
          var rvBoardList = findViewById<RecyclerView>(R.id.RV_Boards_list)
