@@ -63,7 +63,7 @@ class SignInActivity : BaseActivity() {
                         FirestoreClass().loadUserData(this@SignInActivity)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("Sign In", "createUserWithEmail:failure", task.exception)
+                        Log.d("Sign In", "createUserWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "Authentication failed.",
                             Toast.LENGTH_SHORT).show()
                     }

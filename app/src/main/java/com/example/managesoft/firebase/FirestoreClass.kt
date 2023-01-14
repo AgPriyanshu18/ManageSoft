@@ -154,9 +154,9 @@ class FirestoreClass {
                     is SignInActivity ->{
                             activity.hideProgressDialog()
                     }
-                    is MainActivity ->{
-                        activity.hideProgressDialog()
-                    }
+//                    is MainActivity ->{
+//                        activity.hideProgressDialog()
+//                    }
 
                 }
                 Log.e(activity.javaClass.simpleName,"Error writing document",e)

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "453587457426",
-    "project_id": "managesoft-ccada",
-    "storage_bucket": "managesoft-ccada.appspot.com"
+    "project_number": "557566715569",
+    "project_id": "managesoft-73b96",
+    "storage_bucket": "managesoft-73b96.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453587457426:android:700e95d378adae5a3f9d4b",
+        "mobilesdk_app_id": "1:557566715569:android:3beabce8ceba5624852490",
         "android_client_info": {
           "package_name": "com.example.managesoft"
         }
       },
       "oauth_client": [
         {
-          "client_id": "453587457426-1knnl25ui0koa5ukk6ei4ba6326k1gqc.apps.googleusercontent.com",
+          "client_id": "557566715569-obvq3b80voqait2rk61jubvsvjusiepp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTYTwdlocZ-wBqAMN9dbPHsIj2gGQ9eIY"
+          "current_key": "AIzaSyAMcCxgRlaZBZjpfxs0PDTH3hnsRX49jzU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "453587457426-1knnl25ui0koa5ukk6ei4ba6326k1gqc.apps.googleusercontent.com",
+              "client_id": "557566715569-obvq3b80voqait2rk61jubvsvjusiepp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

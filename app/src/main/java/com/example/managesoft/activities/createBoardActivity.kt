@@ -64,9 +64,9 @@ class createBoardActivity : BaseActivity() {
         val boardName = binding?.etBoardName?.text.toString().trim{it <= ' '}
         val assignedUsers : ArrayList<String> = ArrayList()
         assignedUsers.add(getCurrentUserId())
-        var boardInfo = Board(boardName,mBoardImageURI!!,mUserName, assignedUsers)
+        val boardInfo = Board(boardName, mBoardImageURI,mUserName, assignedUsers)
         showProgressDialog("Creating...")
-        FirestoreClass().createBoard(this@createBoardActivity,boardInfo!!)
+        FirestoreClass().createBoard(this@createBoardActivity, boardInfo)
     }
 
     private fun updateBoard(){
@@ -74,8 +74,8 @@ class createBoardActivity : BaseActivity() {
 
         val boardHashMap = HashMap<String , Any>()
 
-        if (mBoardImageURI!=null && mBoardImageURI!!.isNotEmpty() ){
-            boardHashMap[Constants.IMAGE] = mBoardImageURI!!
+        if (mBoardImageURI.isNotEmpty()){
+            boardHashMap[Constants.IMAGE] = mBoardImageURI
         }
 
         if (boardName.isNotEmpty()){

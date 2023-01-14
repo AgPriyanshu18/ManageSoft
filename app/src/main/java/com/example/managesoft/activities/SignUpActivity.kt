@@ -63,8 +63,9 @@ class SignUpActivity : BaseActivity() {
                         val user = User(firebaseUser.uid,name,registeredEmail)
                         FirestoreClass().registerUser(this,user)
                     } else {
+                        hideProgressDialog()
                         Toast.makeText(this,
-                            "Registration failed", Toast.LENGTH_SHORT).show()
+                            task.exception!!.message, Toast.LENGTH_SHORT).show()
                     }
                 }
         }

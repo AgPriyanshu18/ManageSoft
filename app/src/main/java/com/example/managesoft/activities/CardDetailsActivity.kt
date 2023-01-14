@@ -275,7 +275,7 @@ class CardDetailsActivity : BaseActivity() {
 
             binding?.rvSelectedMembersList?.layoutManager = GridLayoutManager(this, 6)
 
-            val adapter = CardMemberListItemAdapter(this, selectedMembersList)
+            val adapter = CardMemberListItemAdapter(this, selectedMembersList,false)
 
             binding?.rvSelectedMembersList?.adapter = adapter
 
